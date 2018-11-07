@@ -1,0 +1,18 @@
+[Unit]
+Description=Rocket API Puma Rails Server
+After=network.target mongod.service redis-server.service
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/home/deploy/www/rocket_api
+
+ExecStart=/home/deploy/www/rocket_api/bin/puma -C /home/deploy/www/rocket_api/config/puma_production.rb
+
+Environment="PATH=/home/deploy/.rbenv/shims:/home/deploy/.rbenv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+
+RestartSec=1
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
